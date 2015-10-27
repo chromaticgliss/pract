@@ -152,5 +152,50 @@ class CgStacksQueuesPract {
 		}
 
 		
+		int stackMax = 25;
+		int lastStack = 0;
+
+		public SetOfStacks() {
+			stacks = new ArrayList<CgStack<Integer>>();
+			stacks.add(new CgStack<Integer>());
+		}
+
+		public void push(Integer item) {
+			if (stacks.get(lastStack).size() < 25) {
+				stacks.get(lastStack).push(item)
+			} else {
+				stacks.add(new CgStack<Integer>());
+				++lastStack;
+				stacks.get(lastStack).push(item);
+			}			
+		}
+
+		public Integer pop() throws Exception {
+			if (lastStack == 0 && stacks.get(lastStack).size() == 0) {
+				throw Exception("No more items");
+			}
+
+			if (stacks.get(lastStack).size() > 0) {
+				stacks.get(lastStack).pop(item);
+			} else {
+				stacks.remove(lastStack);
+				--lastStack;
+				return this.pop();
+			}
+		}
+
+		public Integer popAt(int index) throws Exception {
+			if (index < 0 || index > lastStack) {
+				throw Exception("Bad Index");
+			}
+
+			if(stacks.get(index).size() > 0) {
+				return stacks.get(index).pop();
+			} else {
+				throw Exception("No more items on this stack");
+			}	
+		}
 	}	
+
+
 }
