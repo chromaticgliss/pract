@@ -145,6 +145,12 @@ class CgStacksQueuesPract {
 	// As one stack fills, begin another. Remove in LIFO order still.
 	// Has capability to remove from particular stack.
 	public class SetOfStacks {
-		//TODO	
+		ArrayList<CgStack<Integer>> stacks;
+		
+		public SetOfStacks() {
+			stacks = new ArrayList<CgStack<Integer>>();
+		}
+
+		
 	}	
 }
