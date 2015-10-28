@@ -4,17 +4,17 @@ class CgStacksQueuesPract {
 		public T data;
 		public CgNode<T> next;
 
-		public CgNode<T>(T data, CgNode<T> next) {
+		public CgNode(T data, CgNode<T> next) {
 			this.data = data;
 			this.next = next;
 		}
 	}	
 	
 	private class CgStack<T> {
-		CgNode<T> head;
-		int size;
+		private CgNode<T> head;
+		private int size;
 
-		public CgStack<T>() {
+		public CgStack() {
 			head = null;
 			size = 0;
 		}
@@ -114,7 +114,7 @@ class CgStacksQueuesPract {
 	
 	// Keeps track of what the minimum element is
 	// Uses two stacks, one tracking sequence of mins
-	public class CgMinStack<T> {
+	public class CgMinStack<T implements Comparable> {
 		private CgStack<T> minStack = new CgStack<T>();
 		private CgStack<T> stack = new CgStack<T>();
 
@@ -129,7 +129,7 @@ class CgStacksQueuesPract {
 		public T pop() {
 			T item = stack.pop();
 
-			if (item == minStack.peek()) {
+			if (item.equals(minStack.peek())) {
 				minStack.pop();
 			}
 
@@ -196,5 +196,59 @@ class CgStacksQueuesPract {
 			}	
 		}
 	}	
+	
+
+	//Queue implemented using stacks.
+	public class CgMyQueue<T> {
+		CgStack<T> in, out;
+
+		public CgMyQueue() {
+			this.in = new CgStack<T>();
+			this.out = new CgStack<T>();
+		}	
+
+		public void queue(T item) {
+			this.in.push(item);
+		}
+
+		public T dequeue() {
+			if (this.out.size() == 0) {
+				shiftElements(in, out);
+			}	
+
+			this.out.pop();
+		}
+
+		public T peek() {
+			if (this.out.size() == 0) {
+				shiftElements(in, out);
+			}	
+			
+			this.out.peek();
+		}
+
+		private void shiftElements(CgStack<T> from, CgStack<T> to) {
+			while (from.size() > 0) {
+				to.push(from.pop());
+			}	
+		}
+
+	}
+
+	public static CgStack<Integer> sortStack(CgStack<Integer> stack) {
+		CgStack<Integer> sorted = new CgStack<Integer>();
+		int smallest = stack.pop();
+
+		while (stack.size() > 0) {
+			int temp = stack.pop();
+			while (sorted.size() > 0 && sorted.peek() > temp) {
+				stack.push(sorted.pop());	
+			}	
+
+			sorted.push(temp);
+		}
+		
+		return sorted;
+	}
 
 }
