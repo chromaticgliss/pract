@@ -10,7 +10,9 @@ class CgTreeGraphPract {
 		}
 	}
 
-
+	// Pair of functions to determine if a tree is balanced.
+	// A balanced tree has subtrees with heights differing by
+	// no more than one. 
 	public boolean isBalanced(CgTreeNode root) {
 		if (root == null) {
 			return true;
@@ -27,15 +29,25 @@ class CgTreeGraphPract {
 		}
 
 		int heightLeft = checkHeight(root.left);
+		if (heightLeft == -1) {
+			return -1;
+		}
+
 		int heightRight = checkHeight(root.right);
+		if (heightRight == -1) {
+			return -1;
+		}
 
 	
 
-		if ( heightLeft == -1 || heightRight == -1 || Math.abs(heightLeft - heightRight) > 1 ) {
+		if (Math.abs(heightLeft - heightRight) > 1) {
 			return -1
 		}
 
-		return heightLeft > heightRight ? heightLeft + 1 : heightRight + 1;
+		return Math.max(heightLeft,heightRight) + 1;
 	}
+
+	// Given a directed graph, an algorithm to find out
+	// whether there is a path between two nodes.
 
 }
